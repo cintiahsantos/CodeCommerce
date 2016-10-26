@@ -25,8 +25,12 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         //
-
         parent::boot($router);
+        //category aponta para para o model CdCommerce\Category
+        // deste modo sempre que nas rotas se passar o ID no parametro
+        // {category} será transformado na instancia do objeto category
+        $router->model('category', 'CodeCommerce\Category');
+
     }
 
     /**
