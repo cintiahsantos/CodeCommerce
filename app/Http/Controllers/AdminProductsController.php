@@ -1,9 +1,7 @@
 <?php
 
 namespace CodeCommerce\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 use CodeCommerce\Product;
@@ -22,7 +20,7 @@ class AdminProductsController extends Controller
     }
     public function index()
     {
-        $products=$this->products->all();
+        $products = $this->products->all();
         return view('product.index', compact('products'));
     }
 
@@ -33,7 +31,7 @@ class AdminProductsController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -42,9 +40,12 @@ class AdminProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\ProductRequest $request)
     {
-        //
+        $input = $request->all();
+        $product = $this->products->fill($input);
+        $product->save();
+        return redirect()->route('listar-produtos');
     }
 
     /**
@@ -66,7 +67,8 @@ class AdminProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = $this->products->find($id);
+        return view('product.edit', compact('product'));
     }
 
     /**
@@ -76,9 +78,10 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\ProductRequest $request, $id)
     {
-        //
+        $this->products->find($id)->update($request->all());
+        return redirect()->route('listar-produtos');
     }
 
     /**
@@ -89,6 +92,7 @@ class AdminProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->products->find($id)->delete();
+        return redirect()->route('listar-produtos');
     }
 }

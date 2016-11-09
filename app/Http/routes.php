@@ -17,24 +17,33 @@
 Route::pattern ('id', '[0-9]+');
 Route::group(['prefix'=>'admin'], function(){
         Route::group(['prefix'=>'categories'], function(){
-                Route::get('',['as'=> 'listar-categoria','uses' => 'AdminCategoriesController@index']);
-                Route::post('create',['as'=> 'inserir-categoria','uses' => 'AdminCategoriesController@index']);
+                Route::get('',['as'=> 'listar-categorias','uses' => 'AdminCategoriesController@index']);
+                Route::post ('',['as'=> 'gravar-categoria','uses' =>'AdminCategoriesController@store']);
+                Route::get('create',['as'=> 'inserir-categoria','uses' => 'AdminCategoriesController@create']);
                 Route::get('read/{id}',['as'=> 'consultar-categoria','uses' => 'AdminCategoriesController@index']);
-                Route::put('update/{id}',['as'=> 'atualizar-categoria','uses' => 'AdminCategoriesController@index']);
-                Route::delete('delete/{id}',['as'=> 'excluir-categoria','uses' => 'AdminCategoriesController@index']);
+                Route::get('edit/{id}',['as'=> 'editar-categoria','uses' => 'AdminCategoriesController@edit']);
+                Route::put('update/{id}',['as'=> 'atualizar-categoria','uses' => 'AdminCategoriesController@update']);
+                Route::get('delete/{id}',['as'=> 'excluir-categoria','uses' => 'AdminCategoriesController@destroy']);
         });
         Route::group(['prefix'=>'products'], function(){
-                Route::get('',['as'=> 'listar-produto','uses' => 'AdminProductsController@index']);
-                Route::post('create',['as'=> 'inserir-produto','uses' => 'AdminProductsController@index']);
+                Route::get('',['as'=> 'listar-produtos','uses' => 'AdminProductsController@index']);
+                Route::post ('',['as'=> 'gravar-produto','uses' =>'AdminProductsController@store']);
+                Route::get('create',['as'=> 'inserir-produto','uses' => 'AdminProductsController@create']);
                 Route::get('read/{id}',['as'=> 'consultar-produto','uses' => 'AdminProductsController@index']);
-                Route::put('upadate/{id}',['as'=> 'atualizar-produto','uses' => 'AdminProductsController@index']);
-                Route::delete('delete/{id}',['as'=> 'excluir-produto','uses' => 'AdminProductsController@index']);
+                Route::get('edit/{id}',['as'=> 'editar-produto','uses' => 'AdminProductsController@edit']);
+                Route::put('update/{id}',['as'=> 'atualizar-produto','uses' => 'AdminProductsController@update']);
+                Route::get('delete/{id}',['as'=> 'excluir-produto','uses' => 'AdminProductsController@destroy']);
         }) ;
 });
 
 
-//Route::get('/','WelcomeController@index');
-//Route::get('exemplo','WelcomeController@exemplo');
+Route::get('/','WelcomeController@index');
+Route::get('exemplo','WelcomeController@exemplo');
+Route::get('home','HomeController@exemplo');
+Route::Controllers([
+        'auth'=> 'Auth\AuthController',
+        'password'=>'Auth\PasswordController',
+]);
 
 // ---------------- Definindo valor padrão de rota com parâmetro id -------
 /*
