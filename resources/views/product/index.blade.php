@@ -3,7 +3,7 @@
     <div class="container">
     <h1>Products</h1>
         <br>
-        <a href="{{route('inserir-produto')}}" class ="btn btn-default">Incluir</a>
+        <a href="{{route('inserir-produto')}}" class ="btn btn-default">Insert</a>
         <br>
         <br>
         <table class ="table">
@@ -31,7 +31,7 @@
                         @endif</td>
                     <td>
                         <a href="{{route('excluir-produto',['id'=>$product->id])}}">Delete</a> |
-                        <a href="{{route('editar-produto',['id'=>$product->id])}}">Editar</a>
+                        <a href="{{route('editar-produto',['id'=>$product->id])}}">Edit</a>
                     </td>
                 </tr>
             @endforeach

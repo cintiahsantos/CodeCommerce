@@ -37,7 +37,6 @@
             {!! Form::label('No','No') !!}
             {!! Form::radio('recommend', 0, 1) !!}
         </div>
-        </div>
         <div class="form-group">
             {!! Form::submit('Add Product',['class'=>'btn btn-primary']) !!}
         </div>

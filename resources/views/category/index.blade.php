@@ -3,7 +3,7 @@
     <div class="container">
         <h1>Categories</h1>
         <br>
-        <a href="{{route('inserir-categoria')}}" class ="btn btn-default">Incluir</a>
+        <a href="{{route('inserir-categoria')}}" class ="btn btn-default">Insert</a>
         <br>
         <br>
         <table class ="table">
@@ -20,7 +20,7 @@
                 <td> {{$category->description}} </td>
                 <td>
                     <a href="{{route('excluir-categoria',['id'=>$category->id])}}">Delete</a> |
-                    <a href="{{route('editar-categoria',['id'=>$category->id])}}">Editar</a>
+                    <a href="{{route('editar-categoria',['id'=>$category->id])}}">Edit</a>
                 </td>
             </tr>
             @endforeach
