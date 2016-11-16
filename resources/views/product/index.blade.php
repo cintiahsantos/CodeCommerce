@@ -9,6 +9,7 @@
         <table class ="table">
             <tr>
                 <th>ID</th>
+                <th>Category</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -19,6 +20,7 @@
             @foreach($products as $product)
                 <tr>
                     <td> {{$product->id}} </td>
+                    <td> {{$product->category->name}}</td>
                     <td> {{$product->name}} </td>
                     <td> {{$product->description}} </td>
                     <td> {{$product->price}} </td>
@@ -36,4 +38,7 @@
                 </tr>
             @endforeach
         </table>
+        <!-- O comando abaixo reideriza e exibe os botoes da paginação informada no AdminProductsController -->
+        {!! $products->render() !!}
+    </div>
 @endsection

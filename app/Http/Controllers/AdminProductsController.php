@@ -1,10 +1,10 @@
 <?php
 
 namespace CodeCommerce\Http\Controllers;
-use Illuminate\Http\Request;
+use CodeCommerce\Category;
 use CodeCommerce\Http\Requests;
-use CodeCommerce\Http\Controllers\Controller;
 use CodeCommerce\Product;
+
 class AdminProductsController extends Controller
 {
     /**
@@ -20,7 +20,10 @@ class AdminProductsController extends Controller
     }
     public function index()
     {
-        $products = $this->products->all();
+        //No comando abaixo todos os produtos são listados em uma unica pagina
+        //$products = $this->products->all();
+        //No comando abaixo os produtos são paginados de 10 em 10
+        $products = $this->products->paginate(10);
         return view('product.index', compact('products'));
     }
 
@@ -29,9 +32,11 @@ class AdminProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category) //Method Inject
     {
-        return view('product.create');
+        //$categories = $category->all();
+        $categories = $category->lists('name', 'id'); //para listar no combobox
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -65,10 +70,11 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Category $category)
     {
+        $categories =$category->lists('name','id');
         $product = $this->products->find($id);
-        return view('product.edit', compact('product'));
+        return view('product.edit', compact('product', 'categories'));
     }
 
     /**

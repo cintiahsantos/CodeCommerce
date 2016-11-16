@@ -14,11 +14,15 @@ class CategoryTableSeeder extends \Illuminate\Database\Seeder
 {
     public function run()
     {
+
         //limpando a tabela
-        DB::table('categories')->truncate();
+        //DB::table('categories')->truncate();
+
+        //Excluisão em cascata para evitar erro de chaves esctrangeiras
+        DB::statement("TRUNCATE TABLE categories CASCADE");
 
         // inserindo manualmente
-        Category::create([
+        /**Category::create([
             'name'=> 'Category 1',
             'description'=> 'Description category 1'
         ]);
@@ -26,18 +30,20 @@ class CategoryTableSeeder extends \Illuminate\Database\Seeder
             'name'=> 'Category 2',
             'description'=> 'Description category 2'
         ]);
+         **/
 
         //inserindo atraves de faker
-        $faker = Faker::create();
-        foreach(range(1,3) as $i){
+        /**$faker = Faker::create();
+        foreach(range(1,15) as $i){
             Category::create([
                 'name' => $faker->word(),
                 'description' => $faker->sentence()
             ]);
         }
+        **/
 
         //inserindo atraves de factory
-        factory('CodeCommerce\Category',10)->create();
+        factory('CodeCommerce\Category',15)->create();
 
     }
 }

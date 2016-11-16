@@ -20,7 +20,10 @@ class AdminCategoriesController extends Controller
     }
     public function index()
     {
-        $categories=$this->categories->all();
+        //No comando abaixo todos as categorias são listadas em uma unica pagina
+        //$categories=$this->categories->all();
+        //No comando abaixo categorias são paginadas de 10 em 10
+        $categories=$this->categories->paginate(10);
         return view('category.index', compact('categories'));
     }
 
