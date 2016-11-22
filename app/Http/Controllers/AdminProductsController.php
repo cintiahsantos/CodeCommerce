@@ -4,6 +4,10 @@ namespace CodeCommerce\Http\Controllers;
 use CodeCommerce\Category;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Product;
+use CodeCommerce\ProductImage;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class AdminProductsController extends Controller
 {
@@ -16,7 +20,7 @@ class AdminProductsController extends Controller
 
     public function __construct(Product $product){
         $this->middleware('guest');
-        $this->products =$product;
+        $this->products = $product;
     }
     public function index()
     {
@@ -100,5 +104,46 @@ class AdminProductsController extends Controller
     {
         $this->products->find($id)->delete();
         return redirect()->route('listar-produtos');
+    }
+
+    // buscar as imagens de um determinado produto passando o id do produto
+    public function images($id)
+    {
+        $product = $this->products->find($id);
+        return view('product.images', compact('product'));
+    }
+    public function createImage($id)
+    {
+        $product =$this->products->find($id);
+        return view('product.createImage', compact('product'));
+    }
+    public function storeImage(Requests\ProductImageRequest $request, $id, ProductImage $productImage)
+    {   //recupera o arquivo
+        $file = $request->file('image');
+        //recupera a extensao do arquivo
+        $extension = $file->getClientOriginalExtension();
+        //cria o objeto
+        $image = $productImage::create(['product_id'=>$id,'extension'=>$extension]);
+        //o comando abaixo grava o arquivo
+        //o 'public local' é o local onde será armazenado o arquivo
+        //e foi informado no arquivo de configuração filesystems na pasta config
+        //para isso é necessário criar a pasta 'uploads' dentro da pasta public
+        Storage:: disk('public_local')->put($image->id.'.'.$extension, File::get($file));
+        //redireciono para a rota 'listar_imagens'
+        return redirect()->route('listar-imagens', ['id'=>$id]);
+    }
+    public function destroyImage($id, ProductImage $productImage)
+    {
+        //localizo a imagem do produto
+        $image = $productImage->find($id);
+        //se o arquivo de imagem existe, o excluo do storage disk
+        if(file_exists(public_path() . '/uploads/'.$image->id.'.'.$image->extension)) {
+            Storage::disk('public_local')->delete($image->id . '.' . $image->extension);
+        }
+        $product = $image->product;
+        //Excluo a imagem do produto no banco
+        $image->delete();
+        //Redireciono para a listagem de imagens do produto
+        return redirect()->route('listar-imagens', ['id'=>$product->id]);
     }
 }

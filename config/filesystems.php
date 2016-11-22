@@ -45,7 +45,8 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root'   => storage_path('app'),
+            //'root'   => storage_path('app'),
+            'root'   => storage_path().'/app',
         ],
 
         'ftp' => [
@@ -62,6 +63,15 @@ return [
             // 'timeout'  => 30,
         ],
 
+        // o local abaixo 'public-local' foi criado no curso de laravel
+        // para simular um drive virtual local de acesso publico
+        // para armazenanar os arquivos de upload da aplicação laravel_commerce
+        'public_local'=>[
+            'driver'=> 'local',
+            'root' => public_path().'/uploads'
+        ],
+
+        //servidor de armazenamento da amazon já vem configurado no laravel
         's3' => [
             'driver' => 's3',
             'key'    => 'your-key',

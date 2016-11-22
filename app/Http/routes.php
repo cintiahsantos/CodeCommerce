@@ -33,6 +33,13 @@ Route::group(['prefix'=>'admin'], function(){
                 Route::get('edit/{id}',['as'=> 'editar-produto','uses' => 'AdminProductsController@edit']);
                 Route::put('update/{id}',['as'=> 'atualizar-produto','uses' => 'AdminProductsController@update']);
                 Route::get('delete/{id}',['as'=> 'excluir-produto','uses' => 'AdminProductsController@destroy']);
+                Route::group(['prefix'=>'product-{id}/images'], function(){
+                        Route::get('',['as'=> 'listar-imagens','uses' => 'AdminProductsController@images']);
+                        Route::get('create',['as'=> 'inserir-imagem','uses' => 'AdminProductsController@createImage']);
+                        Route::post ('',['as'=> 'gravar-imagem','uses' =>'AdminProductsController@storeImage']);
+                        Route::get('delete',['as'=> 'excluir-imagem','uses' => 'AdminProductsController@destroyImage']);
+                });
+
         }) ;
 });
 
