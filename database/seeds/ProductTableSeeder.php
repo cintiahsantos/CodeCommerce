@@ -15,8 +15,8 @@ class ProductTableSeeder extends Seeder
     public function run()
     {
         //limpando a tabela
-        DB::table('products')->truncate();
-        //Excluisão em cascata para evitar erro de chaves esctrangeiras
+        //DB::table('products')->truncate();
+        //Excluisão em cascata para evitar erro de chaves estrangeiras
         DB::statement("TRUNCATE TABLE products CASCADE");
         // inserindo manualmente
         /**Product::create([
