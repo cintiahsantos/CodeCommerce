@@ -37,9 +37,8 @@ class Product extends Model
 
     // Exemplo de Accessor (metodo que permite ser tratado como atributo)
     // Neste caso, o nome do método deve começar com get e terminar com Attribute.
-    // Sua utilização na manipulação do objeto seria da seguinte forma:
-    // Ex: $product->name_description;
-    // ou $product->nameDescription;
+    // Sua utilização na manipulação do objeto poderia ser de varias formas:
+    // Ex: $product->name_description; ou $product->nameDescription; ous $product->NameDescription;
     public function getNameDescriptionAttribute(){
          return $this->name . " - " .$this->description;
     }
@@ -47,8 +46,8 @@ class Product extends Model
     //O metodo abaixo lista as tags do produto, separado por virgula
     public function getTagListAttribute()
     {
-        $tags = $this->tags->list('name');
-        return implode(',',$tags);
+        $tags = $this->tags->lists('name')->toArray();
+        return implode(', ',$tags);
     }
 
 

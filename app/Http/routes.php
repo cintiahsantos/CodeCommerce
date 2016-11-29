@@ -39,7 +39,6 @@ Route::group(['prefix'=>'admin'], function(){
                         Route::post ('',['as'=> 'gravar-imagem','uses' =>'AdminProductsController@storeImage']);
                         Route::get('delete',['as'=> 'excluir-imagem','uses' => 'AdminProductsController@destroyImage']);
                 });
-
         }) ;
 });
 

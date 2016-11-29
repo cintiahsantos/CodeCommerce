@@ -5,6 +5,7 @@ use CodeCommerce\Category;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Product;
 use CodeCommerce\ProductImage;
+Use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -54,6 +55,7 @@ class AdminProductsController extends Controller
         $input = $request->all();
         $product = $this->products->fill($input);
         $product->save();
+        $product->tags()->sync($this->getTagsIds($request->tags));
         return redirect()->route('listar-produtos');
     }
 
@@ -90,7 +92,9 @@ class AdminProductsController extends Controller
      */
     public function update(Requests\ProductRequest $request, $id)
     {
-        $this->products->find($id)->update($request->all());
+        $product = $this->products->find($id)->update($request->all());
+        $product = $this->products->find($id);
+        $product->tags()->sync($this->getTagsIds($request->tags));
         return redirect()->route('listar-produtos');
     }
 
@@ -145,5 +149,21 @@ class AdminProductsController extends Controller
         $image->delete();
         //Redireciono para a listagem de imagens do produto
         return redirect()->route('listar-imagens', ['id'=>$product->id]);
+    }
+
+    private function getTagsIds($tags)
+    {
+        //explode -> explode um conteudo em array, no caso o delimitador é virgula
+        //array_map -> executa uma função em todos os elementos do array
+        //trim -> função que elimina o espaço em branco no inicio e final da string
+        //array_filtar -> elimina registro do array cujo o conteudo é branco
+        $tagList =array_filter(array_map('trim',explode(',',$tags)));
+        $tagsIDs =[];
+        foreach($tagList as $tagName)
+        {
+            @$tagsIDs[] =Tag::firstOrcreate(['name'=>$tagName])->id;
+        }
+        //dd($tags);
+        return @$tagsIDs;
     }
 }

@@ -32,7 +32,7 @@
                         @else No
                         @endif</td>
                     <td>
-                        <a href="{{route('listar-imagens',['id'=>$product->id])}}">Image</a> |
+                        <a href="{{route('listar-imagens',['id'=>$product->id])}}">Images</a> |
                         <a href="{{route('editar-produto',['id'=>$product->id])}}">Edit</a> |
                         <a href="{{route('excluir-produto',['id'=>$product->id])}}">Delete</a>
                     </td>
