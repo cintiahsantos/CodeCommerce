@@ -7,14 +7,10 @@
     <meta name="author" content="">
     <title>Home | E-Shop</title>
 
-
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prettyPhoto.css" rel="stylesheet">
-    <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/main.css" rel="stylesheet">
-    <link href="../css/responsive.css" rel="stylesheet">
-
+<!-- O comando elixir verifica qual a versão gerada pelo gulp, que está associada
+  ao css no arquivo rev-manifest.json que fica na pasta public/build/
+  Esse recurso é muito utilizado para evitar erro e cahe de memoria -->
+    <link href="{{elixir('css/all.css')}}" rel="stylesheet">
 
 </head><!--/head-->
 
@@ -130,9 +126,6 @@
 
 <footer id="footer"><!--Footer-->
 
-
-
-
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
@@ -145,12 +138,7 @@
 </footer><!--/Footer-->
 
 
-
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.scrollUp.min.js"></script>
-<script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/main.js"></script>
+<script src="{{elixir('js/all.js')}}"></script>
 
 </body>
 </html>
