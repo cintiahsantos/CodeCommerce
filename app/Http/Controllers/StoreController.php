@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use CodeCommerce\Product;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
+use CodeCommerce\Tag;
 
 class StoreController extends Controller
 {
     public function index()
     {
-        //O comando abaixo pega uma coleção de produtos em destaque, onde featured =1
+        //O comando comentado abaixo pega uma coleção de produtos em destaque, onde featured =1
         // embora funcione não é uma maneira elegante de programar
         //$pFeatured =Product::where('featured','=','1')->get();
 
@@ -21,23 +22,29 @@ class StoreController extends Controller
 
         $pFeatured =Product::featured()->get();
         $pRecommend =Product::recommend()->get();
-
         $categories = Category::all();
         return view('store.index', compact('categories', 'pFeatured', 'pRecommend'));
     }
 
-    public function productsByCategory($id)
-   {
-       //Retorna uma coleção de produtos de acordo com a query de escopo "scopeFeatured"
-       // e em seguida "escopeByCategory, ou seja produtos em destaque de uma determinada categoria"
-       $pFeatured = Product::featured()->byCategory($id)->get();
+    public function category($id)
+    {
+        $categories = Category::all();
+        $category = Category::find($id);
+        $products = Product::ofCategory($id)->get();
+        return view('store.category', compact('categories','products','category'));
+    }
 
-       //Retorna uma coleção de produtos de acordo com a query de escopo "scopeRecommend"
-       // e em seguida "escopeByCategory, ou seja produtos, recomendados de uma determinada categoria"
-       $pRecommend = Product::recommend()->byCategory($id)->get();
+    public function product($id)
+    {
+        $categories = Category::all();
+        $product = Product::find($id);
+        return view('store.product', compact('categories', 'product'));
+    }
 
-       $categories = Category::all();
-       return view('store.index', compact('categories', 'pFeatured', 'pRecommend'));
-   }
-
+    Public Function tag($id)
+    {
+        $categories = Category::all();
+        $tag = Tag::find($id);
+        return view('store.tag', compact('categories', 'tag'));
+    }
  }

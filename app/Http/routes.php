@@ -45,7 +45,9 @@ Route::group(['prefix'=>'admin'], function(){
 
 //Route::get('/','WelcomeController@index');
 Route::get('/','StoreController@index');
-Route::get('/category/{id}', ['as' => 'listar_produtos_por_categoria', 'uses' => 'StoreController@productsByCategory']);
+Route::get('category/{id}', ['as' => 'listar_produtos_por_categoria', 'uses' => 'StoreController@category']);
+Route::get('product/{id}', ['as' => 'exibir_detalhes_produto', 'uses' => 'StoreController@product']);
+Route::get('tag/{id}', ['as' => 'exibir_tags_produto', 'uses' => 'StoreController@tag']);
 
 
 Route::get('exemplo','WelcomeController@exemplo');

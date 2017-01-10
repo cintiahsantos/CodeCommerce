@@ -50,7 +50,7 @@ class Product extends Model
         return implode(', ',$tags);
     }
 
-    //Consulta de Escopo inicia-se sempre com scope
+    //Consulta de Escopo local inicia-se sempre com scope
     //forma elegante de fazer consultas, filtros para atender regras de negocio
     //devem ser tratadas no Model e não no controller
 
@@ -64,10 +64,16 @@ class Product extends Model
         return $query->where('recommend','=',1);
     }
 
-    //retorna a query que filtra os produtos de uma determinada categoria
-    public function scopeByCategory($query, $id)
+    //Consulta de escopo global inicia-se sempre com scopeOf
+    //e permite a passagem de argumentos
+    //public function scopeOfCategory($query, $type)
+    //{
+    //     return $query->where('category_id', '=', $type);
+    //}
+
+    public function scopeOfCategory($query, $id)
     {
-         return $query->where('category_id', '=', $id);
+        return $query->where('category_id', '=', $id);
     }
 
 }
