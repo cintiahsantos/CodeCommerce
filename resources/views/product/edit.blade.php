@@ -2,11 +2,11 @@
 @section ('content')
     <div class="container">
         <h1>Edit Product: {{ $product->name }}</h1>
-        <!--{{print_r($errors)}} -->
+        {{print_r($errors)}}
         @if ($errors->any())
             <ul class ="alert">
                 @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
+                    <li>{{$error}} </li>
                 @endforeach
             </ul>
         @endif

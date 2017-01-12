@@ -7,7 +7,7 @@
 	<title>Laravel</title>
 
 
-		<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+		<link href="{{ elixir('css/all.css')}}" rel="stylesheet">
 
 
 	<!-- Fonts -->

@@ -39,7 +39,7 @@
                     <p>{{$product->description}}</p>
                         <span>
                             <span>R$ {{number_format($product->price,2,",",".")}} </span>
-                                <a href="#"
+                                <a href="{{route('incluir_item_carrinho', ['id'=>$product->id])}}"
                                    class="btn btn-fefault cart">
                                    <i class="fa fa-shopping-cart"></i>
                                     Adicionar no Carrinho
