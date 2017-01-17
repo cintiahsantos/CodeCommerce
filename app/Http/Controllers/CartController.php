@@ -34,14 +34,38 @@ class CartController extends Controller
 
     public function add($id)
     {
-        if (Session::has('cart')){
+        $cart = $this->getCart();
+        $product = Product::find($id);
+        $cart->add($id,$product->name, $product->price);
+        Session::set('cart',$cart);
+        return redirect()->route('exibir_carrinho');
+    }
+
+    public function destroy($id)
+    {
+        $cart = $this->getCart();
+        $cart->remove($id);
+        Session::set('cart',$cart);
+        return redirect()->route('exibir_carrinho');
+    }
+
+    /**
+     * @return Cart
+     */
+    private function getCart()
+    {
+        if (Session::has('cart')) {
             $cart = Session::get('cart');
         } else {
             $cart = $this->cart;
         }
-        $product = Product::find($id);
-        $cart->add($id,$product->name, $product->price);
-        Session::set('cart',$cart);
+        return $cart;
+    }
+
+    public function updateItemQuantity($id, $qty){
+        $cart = $this->getCart();
+        $cart->updateItemQuantity($id, $qty);
+        Session::set('cart', $cart);
         return redirect()->route('exibir_carrinho');
     }
 }

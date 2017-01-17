@@ -50,6 +50,8 @@ Route::get('product/{id}', ['as' => 'exibir_detalhes_produto', 'uses' => 'StoreC
 Route::get('tag/{id}', ['as' => 'exibir_tags_produto', 'uses' => 'StoreController@tag']);
 Route::get('cart', ['as' => 'exibir_carrinho', 'uses' => 'CartController@index']);
 Route::get('cart/add/{id}', ['as' => 'incluir_item_carrinho', 'uses' => 'CartController@add']);
+Route::get('cart/destroy/{id}', ['as' => 'excluir_item_carrinho', 'uses' => 'CartController@destroy']);
+Route::get('cart/item/qty/update/{id}/{qty}', ['as' => 'atualizar_qtd_item_carrinho', 'uses' => 'CartController@updateItemQuantity']);
 
 
 Route::get('exemplo','WelcomeController@exemplo');

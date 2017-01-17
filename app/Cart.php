@@ -8,7 +8,6 @@
 
 namespace CodeCommerce;
 
-
 class Cart
 {
     private $items;
@@ -47,6 +46,17 @@ class Cart
             $total +=$items['qtd'] * $items['price'];
         }
         return $total;
+    }
+
+    /**
+     * @param $id
+     * @param $qtd
+     * @return mixed
+     */
+    public function updateItemQuantity($id, $qtd)
+    {
+        $this->items[$id]['qtd']=$qtd;
+        return $this->items[$id]['qtd'];
     }
 
 }
